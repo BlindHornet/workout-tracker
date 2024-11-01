@@ -1,17 +1,17 @@
-import { StyleSheet, Text, View } from "react-native";
-
-function capitalize(str) {
-  return str && String(str[0]).toUpperCase() + String(str).slice(1);
-}
+import { StyleSheet, Text, View, Pressable } from "react-native";
+import { Link } from "expo-router";
 
 export default function ExerciseListItem({ item }) {
   return (
-    <View style={styles.exerciseContainer}>
-      <Text style={styles.exerciseName}>{item.name}</Text>
-      <Text style={styles.exerciseSubtitle}>
-        {capitalize(item.muscle)} | {capitalize(item.equipment)}
-      </Text>
-    </View>
+    <Link href={`/${item.name}`} asChild>
+      <Pressable style={styles.exerciseContainer}>
+        <Text style={styles.exerciseName}>{item.name}</Text>
+        <Text style={styles.exerciseSubtitle}>
+          <Text style={styles.subValue}>{item.muscle}</Text> |{" "}
+          <Text style={styles.subValue}>{item.equipment}</Text>
+        </Text>
+      </Pressable>
+    </Link>
   );
 }
 
@@ -39,5 +39,8 @@ const styles = StyleSheet.create({
   },
   exerciseSubtitle: {
     color: "dimgray",
+  },
+  subValue: {
+    textTransform: "capitalize",
   },
 });
